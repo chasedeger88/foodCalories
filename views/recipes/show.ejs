@@ -1,0 +1,14 @@
+<h1><%= recipe.name %></h1>
+
+<div class="well">
+  <p>
+	  <ul>
+	<% recipes.forEach(function(recipe){%>
+	   <li><%=recipe.name%> by <span class="recipe-user"><%=recipe.totalCals%>  </span></li>
+
+	<%})%>
+	</ul>
+</p>
+</div>
+
+<a href="/recipes">&larr; Back</a>
