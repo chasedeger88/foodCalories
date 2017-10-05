@@ -1,12 +1,17 @@
-<h2>Your Page</h2>
+<h1>All My Recipes</h1>
 
 <a href="/">Home</a>
 
 <a href="/recipes/new" class="btn btn-success pull-right">New Recipe</a>
+<h2><%= recipe.name %></h2>
 
-<h3>All My Recipes</h3>
+<ul>
+  <% recipes.forEach(function(recipe){%>
+     <li><%=recipe.name%> by <span class="recipe-user"><%=recipe.totalCals%>  </span></li>
 
-<% recipes.forEach(function(recipe) { %>
+  <%})%>
+  </ul>
+
 <div class="well">
   <h2><a href="/recipes/<%= recipe.id %>"><%= recipe.name %></a>
     <small><%= recipe.amount %></small>
@@ -17,3 +22,5 @@
 <% }); %>
 
 <a href="/">&larr; Home</a>
+
+<a href="/recipes">&larr; Back</a>

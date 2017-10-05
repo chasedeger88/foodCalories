@@ -4,7 +4,7 @@ var router = express.Router();
 
 router.get('/', function(req, res) {
   console.log('This is from sessions: ', req.session.lastPage);
-  db.recipe.findAll().then(function(recipes) {
+  db.recipes.findAll().then(function(recipes) {
     res.render('recipes/index', {recipes: recipes});
   }).catch(function(err) {
     res.status(500).render('error');
@@ -16,7 +16,7 @@ router.get('/new', function(req, res) {
 });
 
 router.get('/:id/edit', function(req, res) {
-  db.recipe.findById(req.params.id).then(function(recipe) {
+  db.recipes.findById(req.params.id).then(function(recipe) {
     if (recipe) {
       res.render('recipes/edit', {recipe: recipe});
     } else {
@@ -28,9 +28,9 @@ router.get('/:id/edit', function(req, res) {
 });
 
 router.get('/:id', function(req, res) {
-  db.recipe.findById(req.params.id).then(function(recipe) {
+  db.recipes.findById(req.params.id).then(function(recipe) {
     if (recipe) {
-      res.render('recipes/show', {recipe: recipe});
+      res.render('/profile', {recipe: recipe});
     } else {
       res.status(404).render('error');
     }
@@ -40,7 +40,7 @@ router.get('/:id', function(req, res) {
 });
 
 router.put('/:id', function(req, res) {
-  db.recipe.findById(req.params.id).then(function(recipe) {
+  db.recipes.findById(req.params.id).then(function(recipe) {
     if (recipe) {
       recipe.updateAttributes(req.body).then(function() {
         res.status(200).send({msg: 'success'});
@@ -54,7 +54,7 @@ router.put('/:id', function(req, res) {
 });
 
 router.delete('/:id', function(req, res) {
-  db.recipe.findById(req.params.id).then(function(recipe) {
+  db.recipes.findById(req.params.id).then(function(recipe) {
     if (recipe) {
       recipe.destroy().then(function() {
         res.send({msg: 'success'});
@@ -68,7 +68,7 @@ router.delete('/:id', function(req, res) {
 });
 
 router.post('/', function(req, res) {
-  db.recipe.create(req.body).then(function(recipe) {
+  db.recipes.create(req.body).then(function(recipe) {
     res.redirect('/recipes');
   }).catch(function(err) {
     res.status(500).render('error');

@@ -1,8 +1,8 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var recipesFoods = sequelize.define('recipesFoods', {
-    postId: DataTypes.INTEGER,
-    tagId: DataTypes.INTEGER
+    recipeId: DataTypes.INTEGER,
+    foodId: DataTypes.INTEGER
   }, {
     classMethods: {
       associate: function(models) {

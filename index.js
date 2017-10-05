@@ -30,7 +30,6 @@ app.use(function(req, res, next) {
   next();
 });
 
-///These lines must occur after session is configured
 var passport = require('./config/ppConfig');
 app.use(passport.initialize());
 app.use(passport.session());
@@ -53,7 +52,7 @@ app.get('/', function(req, res) {
 app.get('/profile', isLoggedIn, function(req, res) {
 	////import data from database, store that data as object
 	db.user.find({
-	where: {userid: req.user.id}
+	where: {id: req.user.id}
 	})
 	.then(function(user){
 		db.recipe.find({
