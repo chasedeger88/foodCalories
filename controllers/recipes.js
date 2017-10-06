@@ -1,18 +1,20 @@
 var express = require('express');
 var db = require('./../models');
 var router = express.Router();
+var isLoggedIn = require('../middleware/isLoggedIn');
 
+// router.get('/', function(req, res) {
+//   console.log('This is from sessions: ', req.session.lastPage);
+//   db.recipe.findAll().then(function(recipes) {
+//     res.render('recipes/index', {recipes: recipes});
+//   }).catch(function(err) {
+//     res.status(500).render('error');
+//   });
+// });
+
+// GET for /recipes (gets all recipes in collection)
 router.get('/', function(req, res) {
-  console.log('This is from sessions: ', req.session.lastPage);
-  db.recipe.findAll().then(function(recipes) {
-    res.render('recipes/index', {recipes: recipes});
-  }).catch(function(err) {
-    res.status(500).render('error');
-  });
-});
-
-router.get('/new', function(req, res) {
-  res.render('recipes/new');
+  res.render('/new');
 });
 
 router.get('/:id/edit', function(req, res) {
@@ -37,6 +39,18 @@ router.get('/:id', function(req, res) {
   }).catch(function(err) {
     res.status(500).render('error');
   });
+});
+
+router.post('/recipes', function(req, res) {
+  db.recipe.create(req.body).then(function(recipe) {
+    res.redirect('/recipes');
+  }).catch(function(err) {
+    res.status(500).render('error');
+  });
+});
+
+router.post('/recipes/index', isLoggedIn, function(req,res){
+  
 });
 
 router.put('/:id', function(req, res) {
@@ -64,14 +78,6 @@ router.delete('/:id', function(req, res) {
     }
   }).catch(function(err) {
     res.status(500).send({msg: 'error'});
-  });
-});
-
-router.post('/', function(req, res) {
-  db.recipe.create(req.body).then(function(recipe) {
-    res.redirect('/recipes');
-  }).catch(function(err) {
-    res.status(500).render('error');
   });
 });
 

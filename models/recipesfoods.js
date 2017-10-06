@@ -1,14 +1,14 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var recipesfoods = sequelize.define('recipesfoods', {
-    recipeid: DataTypes.INTEGER,
-    foodid: DataTypes.INTEGER
+  var recipesFoods = sequelize.define('recipesFoods', {
+    recipeId: DataTypes.INTEGER,
+    foodId: DataTypes.INTEGER
   }, {
     classMethods: {
       associate: function(models) {
-        models.recipe.belongsToMany(models.food, {through: "recipesfoods"});
+        // associations can be defined here
       }
     }
   });
-  return recipesfoods;
+  return recipesFoods;
 };
